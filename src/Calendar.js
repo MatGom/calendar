@@ -30,9 +30,43 @@ const Calendar = () => {
     return index >= adjustedFirstDay ? index - adjustedFirstDay + 1 : null;
   });
 
+  const prevMonth = () => {
+    setCurrentMonth(prevCurrentMonth => {
+      let newMonth = prevCurrentMonth - 1;
+      let newYear = currentYear;
+
+      if (newMonth < 0) {
+        newMonth = 11;
+        newYear = currentYear - 1;
+        setCurrentYear(newYear);
+      }
+
+      return newMonth;
+    });
+  };
+
+  const nextMonth = () => {
+    setCurrentMonth(prevCurrentMonth => {
+      let newMonth = prevCurrentMonth + 1;
+      let newYear = currentYear;
+
+      if (newMonth > 11) {
+        newMonth = 0;
+        newYear = currentYear + 1;
+        setCurrentYear(newYear);
+      }
+
+      return newMonth;
+    });
+  };
+
   return (
     <div className='calendar'>
-      <h2 className='calendar-date'>{`${monthNames[currentMonth]} ${currentYear}`}</h2>
+      <div className='calendar-navigation'>
+        <button onClick={prevMonth}>&lt; Prev</button>
+        <h2 className='calendar-date'>{`${monthNames[currentMonth]} ${currentYear}`}</h2>
+        <button onClick={nextMonth}>Next &gt;</button>
+      </div>
       <div className='calendar-grid'>
         <div className='weekdays'>
           {daysOfWeek.map(day => (
