@@ -3,11 +3,22 @@ import { useAppContext } from '../../../context/AppContext';
 import './AddNote.css';
 
 const AddNote = () => {
-  const { setAddNoteOpen } = useAppContext();
+  const { setAddNoteOpen, addNote, selectedDay } = useAppContext();
   const [isAllDay, setIsAllDay] = useState(true);
   const [time, setTime] = useState('12:00');
+  const [noteContent, setNoteContent] = useState('');
 
   const handleCloseAddNote = () => {
+    setAddNoteOpen(false);
+  };
+
+  const handleSaveNote = () => {
+    if (noteContent === '') {
+      return;
+    }
+
+    addNote(selectedDay, noteContent, isAllDay, time);
+    setNoteContent('');
     setAddNoteOpen(false);
   };
 
@@ -34,8 +45,8 @@ const AddNote = () => {
           <input id='note-time' type='time' value={time} onChange={handleTimeChange} />
         </div>
       )}
-      <textarea placeholder='Your note...' />
-      <button>Save</button>
+      <textarea placeholder='Your note...' value={noteContent} onChange={e => setNoteContent(e.target.value)} />
+      <button onClick={handleSaveNote}>Save</button>
       <button onClick={handleCloseAddNote}>Close</button>
     </div>
   );

@@ -5,7 +5,7 @@ import { monthNames } from '../../data/calendar-data';
 import AddNote from './AddNote/AddNote';
 
 const Notes = () => {
-  const { selectedDay, addNoteOpen, setAddNoteOpen } = useAppContext();
+  const { selectedDay, addNoteOpen, notes, setAddNoteOpen } = useAppContext();
 
   const getFormattedDate = dateString => {
     const dateParts = dateString.split('-');
@@ -41,6 +41,14 @@ const Notes = () => {
         <>
           <h3>Notes for {getFormattedDate(selectedDay)}</h3>
           <button onClick={handleOpenAddNote}>Add note</button>
+          {notes[selectedDay]?.map((note, index) => (
+            <div key={index} className='note'>
+              {<p>{note.isAllDay ? 'All Day' : `${note.time}`}</p>}
+              <p>{note.content}</p>
+              <button>Edit</button>
+              <button>Delete</button>
+            </div>
+          ))}
           {addNoteOpen && <AddNote />}
         </>
       )}
