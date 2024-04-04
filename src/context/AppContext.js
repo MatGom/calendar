@@ -11,6 +11,7 @@ export const AppProvider = ({ children }) => {
   const todayFormatted = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
   const [selectedDay, setSelectedDay] = useState(todayFormatted);
   const [notes, setNotes] = useState({});
+  const [addNoteOpen, setAddNoteOpen] = useState(false);
 
   const prevMonth = () => {
     setCurrentMonth(prevCurrentMonth => {
@@ -55,6 +56,8 @@ export const AppProvider = ({ children }) => {
         setNotes,
         prevMonth,
         nextMonth,
+        addNoteOpen,
+        setAddNoteOpen,
       }}>
       {children}
     </AppContext.Provider>

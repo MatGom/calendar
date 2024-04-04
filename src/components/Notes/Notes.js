@@ -2,8 +2,10 @@ import { useAppContext } from '../../context/AppContext';
 import './Notes.css';
 import { monthNames } from '../../data/calendar-data';
 
+import AddNote from './AddNote/AddNote';
+
 const Notes = () => {
-  const { selectedDay, notes, setNotes } = useAppContext();
+  const { selectedDay, addNoteOpen, setAddNoteOpen } = useAppContext();
 
   const getFormattedDate = dateString => {
     const dateParts = dateString.split('-');
@@ -29,18 +31,17 @@ const Notes = () => {
     return formattedDate;
   };
 
+  const handleOpenAddNote = () => {
+    setAddNoteOpen(true);
+  };
+
   return (
     <div className='notes'>
       {selectedDay && (
         <>
           <h3>Notes for {getFormattedDate(selectedDay)}</h3>
-          <textarea
-            className='notes-text'
-            value={notes[selectedDay] || ''}
-            onChange={e => {
-              setNotes({ ...notes, [selectedDay]: e.target.value });
-            }}
-          />
+          <button onClick={handleOpenAddNote}>Add note</button>
+          {addNoteOpen && <AddNote />}
         </>
       )}
     </div>

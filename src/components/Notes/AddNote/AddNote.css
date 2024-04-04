@@ -1,7 +1,9 @@
-.notes {
-  position: relative;
-  min-height: 50vh;
+.add-note {
+  position: absolute;
+  bottom: 0;
+  height: 93%;
   width: 100%;
+  background: gray;
   display: flex;
   flex-direction: column;
   align-items: center;
