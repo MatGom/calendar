@@ -1,7 +1,10 @@
+import { useAppContext } from '../../context/AppContext';
 import './Notes.css';
-import { monthNames } from './data/calendar-data';
+import { monthNames } from '../../data/calendar-data';
 
-const Notes = ({ selectedDay, notes, setNotes }) => {
+const Notes = () => {
+  const { selectedDay, notes, setNotes } = useAppContext();
+
   const getFormattedDate = dateString => {
     const dateParts = dateString.split('-');
     const year = dateParts[0];

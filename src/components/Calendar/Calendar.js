@@ -1,7 +1,10 @@
+import { useAppContext } from '../../context/AppContext';
 import './Calendar.css';
-import { monthNames, daysOfWeek } from './data/calendar-data';
+import { monthNames, daysOfWeek } from '../../data/calendar-data';
 
-const Calendar = ({ currentMonth, currentYear, prevMonth, nextMonth, selectedDay, setSelectedDay }) => {
+const Calendar = () => {
+  const { currentMonth, currentYear, prevMonth, nextMonth, selectedDay, setSelectedDay } = useAppContext();
+
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
   const adjustedFirstDay = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
