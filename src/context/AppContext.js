@@ -12,6 +12,7 @@ export const AppProvider = ({ children }) => {
   const [selectedDay, setSelectedDay] = useState(todayFormatted);
   const [notes, setNotes] = useState({});
   const [addNoteOpen, setAddNoteOpen] = useState(false);
+  const [editingNote, setEditingNote] = useState(null);
   console.log(notes);
 
   const prevMonth = () => {
@@ -48,12 +49,30 @@ export const AppProvider = ({ children }) => {
     const newNote = {
       content: noteContent,
       isAllDay,
-      time: isAllDay ? "All Day" : time, 
+      time: isAllDay ? 'All Day' : time,
     };
-    setNotes((prevNotes) => ({
+    setNotes(prevNotes => ({
       ...prevNotes,
       [date]: [...(prevNotes[date] || []), newNote],
     }));
+  };
+
+  const startEditNote = (note, index) => {
+    setEditingNote({ ...note, index });
+  };
+
+  const stopEditNote = () => {
+    setEditingNote(null);
+  };
+
+  const updateNote = (date, updatedNote, index) => {
+    setNotes(prevNotes => {
+      const updatedNotes = { ...prevNotes };
+      if (updatedNotes[date]) {
+        updatedNotes[date][index] = updatedNote;
+      }
+      return updatedNotes;
+    });
   };
 
   return (
@@ -72,6 +91,10 @@ export const AppProvider = ({ children }) => {
         addNoteOpen,
         setAddNoteOpen,
         addNote,
+        startEditNote,
+        stopEditNote,
+        editingNote,
+        updateNote,
       }}>
       {children}
     </AppContext.Provider>

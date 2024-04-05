@@ -1,25 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAppContext } from '../../../context/AppContext';
-import './AddNote.css';
+import './NoteModal.css';
 
-const AddNote = () => {
-  const { setAddNoteOpen, addNote, selectedDay } = useAppContext();
+const NoteModal = () => {
+  const { setAddNoteOpen, addNote, selectedDay, editingNote, stopEditNote, updateNote } = useAppContext();
   const [isAllDay, setIsAllDay] = useState(true);
   const [time, setTime] = useState('12:00');
   const [noteContent, setNoteContent] = useState('');
+
+  useEffect(() => {
+    if (editingNote) {
+      setIsAllDay(editingNote.isAllDay);
+      setTime(editingNote.time);
+      setNoteContent(editingNote.content);
+    }
+  }, [editingNote]);
 
   const handleCloseAddNote = () => {
     setAddNoteOpen(false);
   };
 
   const handleSaveNote = () => {
-    if (noteContent === '') {
+    if (noteContent.trim() === '') {
       return;
     }
 
-    addNote(selectedDay, noteContent, isAllDay, time);
+    if (editingNote) {
+      updateNote(selectedDay, { content: noteContent, isAllDay, time }, editingNote.index);
+    } else {
+      addNote(selectedDay, noteContent, isAllDay, time);
+    }
+
     setNoteContent('');
+    setIsAllDay(true);
+    setTime('12:00');
     setAddNoteOpen(false);
+    if (editingNote) stopEditNote();
   };
 
   const handleTimeChange = e => {
@@ -31,8 +47,8 @@ const AddNote = () => {
   };
 
   return (
-    <div className='add-note'>
-      <h4>Add Note</h4>
+    <div className='note-modal'>
+      <h4>{editingNote ? 'Edit Note' : 'Add Note'}</h4>
       <div>
         <label>
           <input type='checkbox' checked={isAllDay} onChange={toggleAllDay} />
@@ -52,4 +68,4 @@ const AddNote = () => {
   );
 };
 
-export default AddNote;
+export default NoteModal;

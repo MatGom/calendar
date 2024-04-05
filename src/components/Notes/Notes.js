@@ -2,10 +2,10 @@ import { useAppContext } from '../../context/AppContext';
 import './Notes.css';
 import { monthNames } from '../../data/calendar-data';
 
-import AddNote from './AddNote/AddNote';
+import NoteModal from './NoteModal/NoteModal';
 
 const Notes = () => {
-  const { selectedDay, addNoteOpen, notes, setAddNoteOpen } = useAppContext();
+  const { selectedDay, addNoteOpen, notes, setAddNoteOpen, startEditNote } = useAppContext();
 
   const getFormattedDate = dateString => {
     const dateParts = dateString.split('-');
@@ -35,6 +35,11 @@ const Notes = () => {
     setAddNoteOpen(true);
   };
 
+  const handleEditClick = (note, index) => {
+    startEditNote(note, index);
+    setAddNoteOpen(true);
+  };
+
   return (
     <div className='notes'>
       {selectedDay && (
@@ -45,11 +50,11 @@ const Notes = () => {
             <div key={index} className='note'>
               {<p>{note.isAllDay ? 'All Day' : `${note.time}`}</p>}
               <p>{note.content}</p>
-              <button>Edit</button>
+              <button onClick={() => handleEditClick(note, index)}>Edit</button>
               <button>Delete</button>
             </div>
           ))}
-          {addNoteOpen && <AddNote />}
+          {addNoteOpen && <NoteModal />}
         </>
       )}
     </div>
