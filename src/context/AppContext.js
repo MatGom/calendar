@@ -11,7 +11,7 @@ export const AppProvider = ({ children }) => {
   const todayFormatted = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
   const [selectedDay, setSelectedDay] = useState(todayFormatted);
   const [notes, setNotes] = useState({});
-  const [addNoteOpen, setAddNoteOpen] = useState(false);
+  const [noteModalOpen, setNoteModalOpen] = useState(false);
   const [editingNote, setEditingNote] = useState(null);
   console.log(notes);
 
@@ -75,6 +75,19 @@ export const AppProvider = ({ children }) => {
     });
   };
 
+  const deleteNote = (date, index) => {
+    setNotes(prevNotes => {
+      const updatedNotes = { ...prevNotes };
+      updatedNotes[date] = updatedNotes[date].filter((_, noteIndex) => noteIndex !== index);
+
+      if (updatedNotes[date].length === 0) {
+        delete updatedNotes[date];
+      }
+
+      return updatedNotes;
+    });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -88,13 +101,14 @@ export const AppProvider = ({ children }) => {
         setNotes,
         prevMonth,
         nextMonth,
-        addNoteOpen,
-        setAddNoteOpen,
+        noteModalOpen,
+        setNoteModalOpen,
         addNote,
         startEditNote,
         stopEditNote,
         editingNote,
         updateNote,
+        deleteNote,
       }}>
       {children}
     </AppContext.Provider>

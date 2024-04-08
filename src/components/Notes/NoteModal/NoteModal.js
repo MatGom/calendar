@@ -3,7 +3,7 @@ import { useAppContext } from '../../../context/AppContext';
 import './NoteModal.css';
 
 const NoteModal = () => {
-  const { setAddNoteOpen, addNote, selectedDay, editingNote, stopEditNote, updateNote } = useAppContext();
+  const { setNoteModalOpen, addNote, selectedDay, editingNote, stopEditNote, updateNote } = useAppContext();
   const [isAllDay, setIsAllDay] = useState(true);
   const [time, setTime] = useState('12:00');
   const [noteContent, setNoteContent] = useState('');
@@ -17,7 +17,7 @@ const NoteModal = () => {
   }, [editingNote]);
 
   const handleCloseAddNote = () => {
-    setAddNoteOpen(false);
+    setNoteModalOpen(false);
   };
 
   const handleSaveNote = () => {
@@ -34,7 +34,7 @@ const NoteModal = () => {
     setNoteContent('');
     setIsAllDay(true);
     setTime('12:00');
-    setAddNoteOpen(false);
+    setNoteModalOpen(false);
     if (editingNote) stopEditNote();
   };
 
