@@ -109,6 +109,7 @@ export const AppProvider = ({ children }) => {
         editingNote,
         updateNote,
         deleteNote,
+        todayFormatted
       }}>
       {children}
     </AppContext.Provider>

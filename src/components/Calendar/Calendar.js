@@ -3,15 +3,34 @@ import './Calendar.css';
 import { monthNames, daysOfWeek } from '../../data/calendar-data';
 
 const Calendar = () => {
-  const { currentMonth, currentYear, prevMonth, nextMonth, selectedDay, setSelectedDay } = useAppContext();
+  const { currentMonth, currentYear, prevMonth, nextMonth, selectedDay, setSelectedDay, todayFormatted } =
+    useAppContext();
 
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
   const adjustedFirstDay = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  const daysArray = Array.from({ length: daysInMonth + adjustedFirstDay }, (_, index) => {
-    return index >= adjustedFirstDay ? index - adjustedFirstDay + 1 : null;
+  const prevMonthDaysToShow = adjustedFirstDay;
+  const nextMonthDaysToShow = 6 * 7 - daysInMonth - prevMonthDaysToShow;
+
+  const prevMonthDays = Array.from({ length: prevMonthDaysToShow }, (_, i) => {
+    const year = currentMonth === 0 ? currentYear - 1 : currentYear;
+    const month = currentMonth === 0 ? 11 : currentMonth - 1;
+    const day = new Date(year, month + 1, 0).getDate() - prevMonthDaysToShow + i + 1;
+    return { day, month, year };
   });
+
+  const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => {
+    return { day: i + 1, month: currentMonth, year: currentYear };
+  });
+
+  const nextMonthDays = Array.from({ length: nextMonthDaysToShow }, (_, i) => {
+    const year = currentMonth === 11 ? currentYear + 1 : currentYear;
+    const month = currentMonth === 11 ? 0 : currentMonth + 1;
+    return { day: i + 1, month, year };
+  });
+
+  const daysArray = [...prevMonthDays, ...currentMonthDays, ...nextMonthDays];
 
   return (
     <div className='calendar'>
@@ -29,16 +48,20 @@ const Calendar = () => {
           ))}
         </div>
         <div className='days'>
-          {daysArray.map((day, index) => {
-            const dayString = `${currentYear}-${currentMonth + 1}-${day}`;
-            const isSelected = dayString === selectedDay;
+          {daysArray.map((date, index) => {
+            const formattedDate = `${date.year}-${date.month + 1}-${date.day}`;
+            const isSelected = formattedDate === selectedDay;
+            const isToday = formattedDate === todayFormatted;
+            const isCurrentMonth = date.month === currentMonth;
 
             return (
               <div
                 key={index}
-                className={`day ${isSelected ? 'selected' : ''}`}
-                onClick={() => day && setSelectedDay(dayString)}>
-                {day ? <div>{day}</div> : <div>&nbsp;</div>}
+                className={`day ${isCurrentMonth ? '' : 'not-current-month'} ${isSelected ? 'selected' : ''} ${
+                  isToday ? 'today' : ''
+                }`}
+                onClick={() => setSelectedDay(formattedDate)}>
+                <div>{date.day}</div>
               </div>
             );
           })}

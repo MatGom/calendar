@@ -68,3 +68,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.today {
+  background-color: teal;
+}
+
+.not-current-month {
+  color: #ccc;
+}
