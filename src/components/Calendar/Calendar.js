@@ -3,7 +3,7 @@ import './Calendar.css';
 import { monthNames, daysOfWeek } from '../../data/calendar-data';
 
 const Calendar = () => {
-  const { currentMonth, currentYear, prevMonth, nextMonth, selectedDay, setSelectedDay, todayFormatted } =
+  const { currentMonth, currentYear, prevMonth, nextMonth, selectedDay, setSelectedDay, todayFormatted, notes } =
     useAppContext();
 
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -53,6 +53,7 @@ const Calendar = () => {
             const isSelected = formattedDate === selectedDay;
             const isToday = formattedDate === todayFormatted;
             const isCurrentMonth = date.month === currentMonth;
+            const hasNote = notes[formattedDate]; // Check if there are notes for this day
 
             return (
               <div
@@ -62,6 +63,7 @@ const Calendar = () => {
                 }`}
                 onClick={() => setSelectedDay(formattedDate)}>
                 <div>{date.day}</div>
+                {hasNote && <span>+</span>}
               </div>
             );
           })}
