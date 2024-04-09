@@ -53,7 +53,7 @@ const Calendar = () => {
             const isSelected = formattedDate === selectedDay;
             const isToday = formattedDate === todayFormatted;
             const isCurrentMonth = date.month === currentMonth;
-            const hasNote = notes[formattedDate]; // Check if there are notes for this day
+            const hasNote = notes[formattedDate];
 
             return (
               <div

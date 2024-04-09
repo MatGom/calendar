@@ -13,7 +13,6 @@ export const AppProvider = ({ children }) => {
   const [notes, setNotes] = useState({});
   const [noteModalOpen, setNoteModalOpen] = useState(false);
   const [editingNote, setEditingNote] = useState(null);
-  console.log(notes);
 
   const prevMonth = () => {
     setCurrentMonth(prevCurrentMonth => {
@@ -109,7 +108,7 @@ export const AppProvider = ({ children }) => {
         editingNote,
         updateNote,
         deleteNote,
-        todayFormatted
+        todayFormatted,
       }}>
       {children}
     </AppContext.Provider>
