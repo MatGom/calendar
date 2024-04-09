@@ -44,16 +44,29 @@ export const AppProvider = ({ children }) => {
     });
   };
 
+  const sortNotesByTime = notesArray => {
+    return notesArray.sort((a, b) => {
+      if (a.isAllDay && !b.isAllDay) return -1;
+      if (!a.isAllDay && b.isAllDay) return 1;
+      if (!a.isAllDay && !b.isAllDay) {
+        return a.time.localeCompare(b.time);
+      }
+      return 0;
+    });
+  };
+
   const addNote = (date, noteContent, isAllDay, time) => {
     const newNote = {
       content: noteContent,
       isAllDay,
       time: isAllDay ? 'All Day' : time,
     };
-    setNotes(prevNotes => ({
-      ...prevNotes,
-      [date]: [...(prevNotes[date] || []), newNote],
-    }));
+    setNotes(prevNotes => {
+      const updatedNotes = { ...prevNotes };
+      const notesForDate = updatedNotes[date] ? [...updatedNotes[date], newNote] : [newNote];
+      updatedNotes[date] = sortNotesByTime(notesForDate);
+      return updatedNotes;
+    });
   };
 
   const startEditNote = (note, index) => {
@@ -69,6 +82,7 @@ export const AppProvider = ({ children }) => {
       const updatedNotes = { ...prevNotes };
       if (updatedNotes[date]) {
         updatedNotes[date][index] = updatedNote;
+        updatedNotes[date] = sortNotesByTime(updatedNotes[date]);
       }
       return updatedNotes;
     });
