@@ -1,6 +1,8 @@
 import { useAppContext } from '../../context/AppContext';
 import './Calendar.css';
 import { monthNames, daysOfWeek } from '../../data/calendar-data';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight, faChevronLeft, faBell } from '@fortawesome/free-solid-svg-icons';
 
 const Calendar = () => {
   const { currentMonth, currentYear, prevMonth, nextMonth, selectedDay, setSelectedDay, todayFormatted, notes } =
@@ -35,9 +37,9 @@ const Calendar = () => {
   return (
     <div className='calendar'>
       <div className='calendar-navigation'>
-        <button onClick={prevMonth}>&lt; Prev</button>
+        <FontAwesomeIcon onClick={prevMonth} icon={faChevronLeft} />
         <h2 className='calendar-date'>{`${monthNames[currentMonth]} ${currentYear}`}</h2>
-        <button onClick={nextMonth}>Next &gt;</button>
+        <FontAwesomeIcon onClick={nextMonth} icon={faChevronRight} />
       </div>
       <div className='calendar-grid'>
         <div className='weekdays'>
@@ -63,7 +65,7 @@ const Calendar = () => {
                 }`}
                 onClick={() => setSelectedDay(formattedDate)}>
                 <div>{date.day}</div>
-                {hasNote && <span>+</span>}
+                {hasNote && <FontAwesomeIcon icon={faBell} className='note-icon' />}
               </div>
             );
           })}
