@@ -1,18 +1,30 @@
 .weather {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-size: 1.1em;
+  color: var(--color-three);
 }
 
 .weather div {
   display: flex;
 }
 
-img {
-  width: 30px;
-}
-
-.loading {
+.weather p {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.weather img {
+  width: 26px;
+}
+
+.loading {
+  font-size: 1.1em;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-three);
 }

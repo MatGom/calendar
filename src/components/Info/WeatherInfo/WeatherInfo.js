@@ -33,7 +33,7 @@ function WeatherInfo() {
       });
   }, []);
 
-  if (!weather) return <div className='loading'>Loading...</div>;
+  if (!weather) return <div className='loading'>Fetching data...</div>;
 
   return (
     <div className='weather'>

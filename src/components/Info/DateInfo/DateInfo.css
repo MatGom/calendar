@@ -1,4 +1,6 @@
 .date-info {
+  margin-bottom: 4px;
   display: flex;
   justify-content: space-between;
+  font-size: 0.8em;
 }

@@ -1,6 +1,8 @@
 import DateInfo from './DateInfo/DateInfo';
 import WeatherInfo from './WeatherInfo/WeatherInfo';
 
+import './Info.css'
+
 const Info = () => {
   return (
     <div className='info'>
