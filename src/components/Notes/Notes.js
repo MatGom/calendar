@@ -1,4 +1,5 @@
 import { useAppContext } from '../../context/AppContext';
+import { useState } from 'react';
 import './Notes.css';
 import { monthNames } from '../../data/calendar-data';
 
@@ -6,6 +7,7 @@ import NoteModal from './NoteModal/NoteModal';
 
 const Notes = () => {
   const { selectedDay, noteModalOpen, setNoteModalOpen, notes, startEditNote, deleteNote } = useAppContext();
+  const [noteToDelete, setNoteToDelete] = useState(null);
 
   const getFormattedDate = dateString => {
     const dateParts = dateString.split('-');
@@ -40,8 +42,19 @@ const Notes = () => {
     setNoteModalOpen(true);
   };
 
-  const handleDeleteNote = index => {
-    deleteNote(selectedDay, index);
+  const handleShowConfirmModal = index => {
+    setNoteToDelete(index);
+  };
+
+  const handleCloseConfirmModal = () => {
+    setNoteToDelete(null);
+  };
+
+  const handleDeleteNote = () => {
+    if (noteToDelete !== null) {
+      deleteNote(selectedDay, noteToDelete);
+      setNoteToDelete(null);
+    }
   };
 
   return (
@@ -55,7 +68,14 @@ const Notes = () => {
               {<p>{note.isAllDay ? 'All Day' : `${note.time}`}</p>}
               <p>{note.content}</p>
               <button onClick={() => handleEditClick(note, index)}>Edit</button>
-              <button onClick={() => handleDeleteNote(index)}>Delete</button>
+              <button onClick={() => handleShowConfirmModal(index)}>Delete</button>
+              {noteToDelete !== null && (
+                <div className='confirm'>
+                  <p>Are you sure?</p>
+                  <button onClick={() => handleDeleteNote(index)}>Yes</button>
+                  <button onClick={handleCloseConfirmModal}>Cancel</button>
+                </div>
+              )}
             </div>
           ))}
           {noteModalOpen && <NoteModal />}
