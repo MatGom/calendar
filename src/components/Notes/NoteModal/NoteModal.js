@@ -18,6 +18,7 @@ const NoteModal = () => {
 
   const handleCloseAddNote = () => {
     setNoteModalOpen(false);
+    stopEditNote()
   };
 
   const handleSaveNote = () => {

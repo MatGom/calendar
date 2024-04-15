@@ -1,5 +1,6 @@
 .notes {
   position: relative;
+  padding: 10px;
   min-height: 50vh;
   width: 100%;
   display: flex;
@@ -7,10 +8,61 @@
   align-items: center;
 }
 
+.title-wrapper {
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 10px;
+  font-size: 1.3em;
+  font-weight: 400;
+}
+
+.title-wrapper p {
+  font-size: 0.9em;
+}
+
+.add-note {
+  margin: 10px auto;
+  font-size: 35px;
+  color: var(--color-five);
+}
+
 .note {
-  margin: 3px;
-  width: 90%;
-  background-color: aquamarine;
+  position: relative;
+  padding: 6px;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid var(--color-four);
+  border-radius: 3px;
+}
+
+.note-time {
+  color: var(--color-three);
+  font-size: 1em;
+}
+
+.note-edit {
+  font-size: 12px;
+  position: absolute;
+  top: 9px;
+  right: 33px;
+  color: var(--color-three);
+}
+
+.note-delete {
+  font-size: 12px;
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  color: #960018;
+}
+
+.note-content {
+  margin: 5px auto;
+  font-size: 0.9em;
 }
 
 .confirm {
