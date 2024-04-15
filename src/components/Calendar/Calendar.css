@@ -11,6 +11,15 @@
   align-items: center;
 }
 
+.calendar-icon {
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.calendar-icon:hover {
+  color: var(--color-two);
+}
+
 .calendar-date {
   font-size: 1.3em;
   font-weight: 400;
@@ -55,7 +64,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.2s;
   cursor: pointer;
+}
+
+.day:hover {
+  background-color: var(--color-two);
+  color: var(--color-one);
 }
 
 .note-icon {
@@ -85,4 +100,14 @@
 .not-current-month {
   font-size: 0.8em;
   color: var(--color-three);
+}
+
+@media (min-width: 768px) {
+  .calendar {
+    width: 768px;
+  }
+
+  .day {
+    height: calc((768px / 7) - (20px / 7));
+  }
 }

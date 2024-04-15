@@ -55,8 +55,8 @@ const NoteModal = () => {
       <div className='note-modal-wrapper'>
         <h4 className='note-modal-title'>{editingNote ? 'Edit Note' : 'Add Note'}</h4>
         <div>
-          <label>
-            <input className='note-modal-checkbox' type='checkbox' checked={isAllDay} onChange={toggleAllDay} />
+          <label className='note-modal-checkbox'>
+            <input type='checkbox' checked={isAllDay} onChange={toggleAllDay} />
             All Day
           </label>
         </div>
@@ -65,6 +65,7 @@ const NoteModal = () => {
             Time
           </label>
           <input
+            className='time-input'
             disabled={!isAllDay ? false : true}
             id='note-time'
             type='time'

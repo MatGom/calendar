@@ -1,7 +1,8 @@
 .note-modal {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
   display: flex;
@@ -27,7 +28,16 @@
   font-weight: 400;
 }
 
-.note-modal-checkbox,
+.note-modal-checkbox {
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.note-modal-checkbox:hover {
+  color: var(--color-two);
+}
+
+.note-modal-checkbox input,
 .note-modal-time {
   margin-right: 10px;
 }
@@ -37,6 +47,12 @@
   border-radius: 3px;
   border: none;
   color: var(--color-one);
+  border: 3px solid transparent;
+  outline: none;
+}
+
+.note-modal-content:focus {
+  border: 3px solid var(--color-two);
 }
 
 .note-modal-buttons {
@@ -52,6 +68,12 @@
   color: var(--color-one);
   border: none;
   border-radius: 3px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  box-shadow: 0 0 5px 1px var(--color-two);
 }
 
 .close-button {
@@ -61,8 +83,25 @@
   color: var(--color-one);
   border: none;
   border-radius: 3px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  box-shadow: 0 0 5px 1px var(--color-six);
 }
 
 .inactive {
   opacity: 0.1;
+}
+
+@media (min-width: 768px) {
+  .note-modal {
+    width: 768px;
+  }
+
+  .note-modal-wrapper {
+    width: 50%;
+    height: 50%;
+  }
 }

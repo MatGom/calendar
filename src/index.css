@@ -19,9 +19,23 @@
 
 body {
   background-color: var(--color-one);
-  color: var(--color-five) ;
+  color: var(--color-five);
 }
 
 .app {
   font-family: var(--font-one);
+}
+
+@media (min-width: 768px) {
+  #root {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+
+  .app {
+    width: 768px;
+    height: 1024px;
+  }
 }

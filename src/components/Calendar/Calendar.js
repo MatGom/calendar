@@ -37,9 +37,9 @@ const Calendar = () => {
   return (
     <div className='calendar'>
       <div className='calendar-navigation'>
-        <FontAwesomeIcon onClick={prevMonth} icon={faChevronLeft} />
+        <FontAwesomeIcon className='calendar-icon' onClick={prevMonth} icon={faChevronLeft} />
         <h2 className='calendar-date'>{`${monthNames[currentMonth]} ${currentYear}`}</h2>
-        <FontAwesomeIcon onClick={nextMonth} icon={faChevronRight} />
+        <FontAwesomeIcon className='calendar-icon' onClick={nextMonth} icon={faChevronRight} />
       </div>
       <div className='calendar-grid'>
         <div className='weekdays'>
