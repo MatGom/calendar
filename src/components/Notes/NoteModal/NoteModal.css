@@ -1,10 +1,68 @@
 .note-modal {
-  position: absolute;
-  bottom: 0;
-  height: 93%;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  background: gray;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+.note-modal-wrapper {
+  width: 80%;
+  height: 60%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
+  background-color: var(--color-one);
+  border-radius: 10px;
+  box-shadow: 0 0 12px 0px var(--color-two);
+}
+
+.note-modal-title {
+  font-size: 1.3em;
+  font-weight: 400;
+}
+
+.note-modal-checkbox,
+.note-modal-time {
+  margin-right: 10px;
+}
+
+.note-modal-content {
+  padding: 5px;
+  border-radius: 3px;
+  border: none;
+  color: var(--color-one);
+}
+
+.note-modal-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.save-button {
+  width: 60px;
+  height: 25px;
+  background-color: var(--color-two);
+  color: var(--color-one);
+  border: none;
+  border-radius: 3px;
+}
+
+.close-button {
+  width: 60px;
+  height: 25px;
+  background-color: var(--color-six);
+  color: var(--color-one);
+  border: none;
+  border-radius: 3px;
+}
+
+.inactive {
+  opacity: 0.1;
 }
