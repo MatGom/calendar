@@ -79,9 +79,13 @@ const Notes = () => {
               />
               {noteToDelete !== null && (
                 <div className='confirm'>
-                  <p>Are you sure?</p>
-                  <button onClick={() => handleDeleteNote(index)}>Yes</button>
-                  <button onClick={handleCloseConfirmModal}>Cancel</button>
+                  <div className='confirm-wrapper'>
+                    <p>Do you want to delete this note?</p>
+                    <div className='confirm-buttons-wrapper'>
+                      <button className='confirm-button' onClick={() => handleDeleteNote(index)}>Yes</button>
+                      <button className='cancel-button' onClick={handleCloseConfirmModal}>Cancel</button>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
