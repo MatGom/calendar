@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 
 const AppContext = createContext();
 
@@ -10,9 +10,16 @@ export const AppProvider = ({ children }) => {
   const today = new Date();
   const todayFormatted = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
   const [selectedDay, setSelectedDay] = useState(todayFormatted);
-  const [notes, setNotes] = useState({});
+  const [notes, setNotes] = useState(() => {
+    const savedNotes = localStorage.getItem('notes');
+    return savedNotes ? JSON.parse(savedNotes) : {};
+  });
   const [noteModalOpen, setNoteModalOpen] = useState(false);
   const [editingNote, setEditingNote] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem('notes', JSON.stringify(notes));
+  }, [notes]);
 
   const prevMonth = () => {
     setCurrentMonth(prevCurrentMonth => {
